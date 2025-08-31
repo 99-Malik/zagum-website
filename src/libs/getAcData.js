@@ -1,6 +1,6 @@
-export const companyName = "Gulf Service Center UAE";
+export const companyName = "Nexora Repairs";
 
-export const phoneNumber = "+971523251847";
+export const phoneNumber = "+971503731608";
 
 export const sendMessage = () => {
     const message = "Hello, I need assistance with my air conditioner.";

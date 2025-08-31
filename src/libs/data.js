@@ -1,6 +1,6 @@
-export const companyName = "Gulf Service Center UAE";
+export const companyName = "Nexora Repairs";
 
-export const phoneNumber = "+971502947701";
+export const phoneNumber = "+971503731608";
 
 export const sendMessage = () => {
   const message = "Hello, I want your repair services";
@@ -15,17 +15,17 @@ export const dialPhone = () => {
 // Stable Wikimedia image URLs (direct file paths)
 const img = {
   dishwasher:
-    "/dishwasher-repair.jpg",
+    "/2.png",
   dryer:
-    "/dryer-repair.jpg",
+    "/3.png",
   washer:
-    "/washing-machine-repair.jpg",
+    "/1.png",
   stove:
-    "/oven-repair.jpg",
+    "/5.png",
   oven:
-    "/oven-repair.jpg",
+    "/6.png",
   fridge:
-    "/fridge-repair.jpg",
+    "/4.png",
   tv:
     "/tv-repair.jpg",
 };

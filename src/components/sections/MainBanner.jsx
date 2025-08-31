@@ -1,97 +1,224 @@
 "use client";
+
 import React from "react";
-import { Phone, MessageCircle } from "lucide-react";
+import Image from "next/image";
+import { Phone, MessageCircle, Check, Shield, Clock, MapPin } from "lucide-react";
+import { Timer, Trophy, ShieldCheck, Globe2 } from "lucide-react";
 import { dialPhone, sendMessage } from "@/libs/data";
+import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 
-function MainBanner({ company = "Appliance Service Center UAE" }) {
+const BRAND = {
+  default: {
+    navy: "#182333",
+    navyDeep: "#0E1622",
+    orange: "#feaf0d",
+    hairlineNavy: "from-[#0E1622] to-[#182333]",
+    ctaOrange: "from-[#feaf0d] to-[#fbbf24]",
+    chipNavy: "from-[#182333] to-[#0E1622]",
+  },
+  lg: {
+    navy: "#A50034",
+    navyDeep: "#8B002C",
+    orange: "#feaf0d",
+    hairlineNavy: "from-[#8B002C] to-[#A50034]",
+    ctaOrange: "from-[#feaf0d] to-[#fbbf24]",
+    chipNavy: "from-[#A50034] to-[#8B002C]",
+  },
+  samsung: {
+    navy: "#1428A0",
+    navyDeep: "#0B1E7A",
+    orange: "#feaf0d",
+    hairlineNavy: "from-[#0B1E7A] to-[#1428A0]",
+    ctaOrange: "from-[#feaf0d] to-[#fbbf24]",
+    chipNavy: "from-[#1428A0] to-[#0B1E7A]",
+  },
+  bosch: {
+    navy: "#E20015",
+    navyDeep: "#B80012",
+    orange: "#feaf0d",
+    hairlineNavy: "from-[#B80012] to-[#E20015]",
+    ctaOrange: "from-[#feaf0d] to-[#fbbf24]",
+    chipNavy: "from-[#E20015] to-[#B80012]",
+  },
+  siemens: {
+    navy: "#00A4B4",
+    navyDeep: "#007C8C",
+    orange: "#feaf0d",
+    hairlineNavy: "from-[#007C8C] to-[#00A4B4]",
+    ctaOrange: "from-[#feaf0d] to-[#fbbf24]",
+    chipNavy: "from-[#00A4B4] to-[#007C8C]",
+  },
+};
+
+export default function MainBanner({ company = "Appliance Service Center UAE" }) {
+  const pathname = usePathname();
+  const key =
+    pathname?.includes("lg") ? "lg" :
+    pathname?.includes("samsung") ? "samsung" :
+    pathname?.includes("bosch") ? "bosch" :
+    pathname?.includes("siemens") ? "siemens" : "default";
+
+  const brand = BRAND[key];
+
   return (
-    <section className="relative bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 min-h-screen flex items-center">
-      {/* Content Container */}
-      <div className="w-full px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
-          
-          {/* Main Content */}
-          <div className="text-white space-y-8">
-            {/* Main Heading */}
-            <div>
-              <h1 className="text-5xl lg:text-6xl xl:text-7xl font-black leading-tight">
-                <span className="block text-white">Professional</span>
-                <span className="block text-blue-400">Appliance Repair</span>
-              </h1>
-              <p className="text-xl text-blue-300 font-medium mt-6">
-                Same Day Fix • Save 80% • 24/7 Service
-              </p>
-            </div>
+    <section className="relative isolate overflow-hidden">
+      {/* Background */}
+      <div aria-hidden className="absolute inset-0 -z-10">
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `linear-gradient(135deg, ${brand.navyDeep} 0%, ${brand.navy} 25%, #f8fafc 60%, #ffffff 100%)`,
+          }}
+        />
+        <div
+          className="absolute -top-32 -left-32 w-[40vw] h-[40vw] rounded-full blur-[150px] opacity-25"
+          style={{ background: brand.orange }}
+        />
+        <div
+          className="absolute bottom-0 right-0 w-[50vw] h-[50vw] rounded-full blur-[160px] opacity-25"
+          style={{ background: brand.navy }}
+        />
+        <div className="absolute inset-0 bg-[url('/static/grid.svg')] opacity-10 mix-blend-overlay" />
+      </div>
 
-            {/* Description */}
-            <p className="text-lg text-gray-300 leading-relaxed max-w-2xl mx-auto">
-              <span className="text-yellow-300 font-semibold">Expert technicians</span> fix your broken appliances in 
-              <span className="text-blue-300 font-semibold"> under 2 hours</span>! 
-              Same-day service, lifetime warranty, and competitive pricing.
+      {/* Hairline */}
+      <div
+        aria-hidden
+        className={`absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r ${brand.hairlineNavy}`}
+      />
+
+      {/* Content */}
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col gap-12 py-16 lg:py-24">
+          {/* TEXT + CTA (Top Section) */}
+          <motion.div
+            className="backdrop-blur-sm bg-white/70 p-6 rounded-2xl shadow-xl"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+          >
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight leading-[1.15] text-slate-900">
+              Premium{" "}
+              <span className="px-2 rounded-md text-white" style={{ backgroundColor: brand.navy }}>
+                Appliance
+              </span>{" "}
+              <span
+                className="bg-gradient-to-r bg-clip-text text-transparent"
+                style={{ backgroundImage: `linear-gradient(to right, ${brand.orange}, #fbbf24)` }}
+              >
+                Repair
+              </span>
+            </h1>
+
+            <p className="mt-4 sm:mt-6 text-base sm:text-lg text-slate-700 max-w-xl leading-relaxed">
+              Fast response, transparent pricing, and{" "}
+              <span style={{ color: brand.navy }} className="font-semibold">
+                warranty-backed services.
+              </span>{" "}
+              
             </p>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            {/* Features */}
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              {[Clock, Shield, MapPin, Check].map((Icon, i) => {
+                const text = [
+                  "Same-day service",
+                  "12-month warranty",
+                  "UAE-wide coverage",
+                  "98% fix rate",
+                ][i];
+                return (
+                  <div key={text} className="flex items-center gap-3">
+                    <div className="h-9 w-9 flex items-center justify-center rounded-full bg-slate-100 ring-1 ring-slate-200">
+                      <Icon className="h-4 w-4" style={{ color: brand.orange }} />
+                    </div>
+                    <span className="text-sm sm:text-base font-medium text-slate-800">{text}</span>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* CTAs */}
+            <div className="mt-8 flex flex-col sm:flex-row gap-4">
               <button
                 onClick={dialPhone}
-                className="group flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg px-8 py-4 rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl shadow-lg"
+                className={`inline-flex items-center justify-center gap-3 rounded-xl px-6 py-3 sm:px-8 sm:py-4 font-semibold text-slate-800 shadow-lg hover:scale-105 transition bg-gradient-to-r ${brand.ctaOrange}`}
               >
-                <Phone size={24} className="group-hover:scale-110 transition-transform duration-300" />
-                <span>Call Now - Free Quote</span>
+                <Phone className="h-5 w-5" />
+                Call Now
               </button>
               <button
                 onClick={sendMessage}
-                className="group flex items-center justify-center gap-3 bg-green-600 hover:bg-green-700 text-white font-bold text-lg px-8 py-4 rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl shadow-lg"
+                className="inline-flex items-center justify-center gap-3 rounded-xl px-6 py-3 sm:px-8 sm:py-4 font-semibold border-2 bg-white/90 text-slate-800 hover:bg-white"
               >
-                <MessageCircle size={24} className="group-hover:scale-110 transition-transform duration-300" />
-                <span>WhatsApp Us</span>
+                <MessageCircle className="h-5 w-5" />
+                WhatsApp
               </button>
             </div>
+          </motion.div>
 
-            {/* Simple Trust Indicators */}
-            <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-300">
-              <span className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                Same Day Fix
-              </span>
-              <span className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                Lifetime Warranty
-              </span>
-              <span className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-yellow-500 rounded-full"></span>
-                5-Star Rated
-              </span>
-              <span className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
-                24/7 Emergency
-              </span>
+          {/* IMAGE + METRICS (Bottom Section) */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
+          >
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl ring-1 ring-slate-200">
+              <Image
+                src="/banner.png"
+                alt="Technician repairing an appliance"
+                width={800}
+                height={600}
+                className="object-cover w-full h-full"
+                priority
+              />
+              <div className="absolute top-4 right-4 rounded-full bg-white/95 px-4 py-2 text-sm font-semibold shadow flex items-center gap-2">
+                <span
+                  className="h-2 w-2 rounded-full animate-pulse"
+                  style={{ backgroundColor: brand.orange }}
+                />
+                Available Now
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
 
-      {/* Bottom Wave */}
-      <div className="absolute bottom-0 left-0 w-full">
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-full h-auto">
-          <path
-            d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
-            opacity=".25"
-            fill="#3B82F6"
-          />
-          <path
-            d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.71,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z"
-            opacity=".5"
-            fill="#3B82F6"
-          />
-          <path
-            d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"
-            fill="#3B82F6"
-          />
-        </svg>
+            {/* Metrics */}
+            <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+              {[
+                { l: "Response", v: "10 min", i: Timer, color: "from-[#feaf0d] to-[#fbbf24]" },
+                { l: "Success", v: "98%", i: Trophy, color: "from-[#feaf0d] to-[#fbbf24]" },
+                { l: "Warranty", v: "12 mo", i: ShieldCheck, color: "from-[#feaf0d] to-[#fbbf24]" },
+                { l: "Coverage", v: "UAE", i: Globe2, color: "from-[#feaf0d] to-[#fbbf24]" }
+              ].map(({ l, v, i: Icon, color }, index) => (
+                <motion.div
+                  key={l}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="group relative p-3 sm:p-4 rounded-2xl bg-white/95 backdrop-blur-sm shadow-lg hover:shadow-xl ring-1 ring-slate-200/50 flex flex-col items-center text-center hover:scale-[1.02] transition-all duration-300 cursor-pointer overflow-hidden"
+                >
+                  {/* Gradient Background Overlay */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
+                  
+                  {/* Icon Container */}
+                  <div className={`relative w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br ${color} flex items-center justify-center mb-2 sm:mb-3 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                    <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="relative">
+                    <p className="text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">{l}</p>
+                    <p className="text-lg sm:text-xl font-black text-slate-900 group-hover:text-slate-800 transition-colors duration-300">{v}</p>
+                  </div>
+                  
+                  {/* Hover Accent Line */}
+                  <div className={`absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r ${color} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left`} />
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
 }
-
-export default MainBanner;
